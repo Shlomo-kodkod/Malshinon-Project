@@ -214,8 +214,4 @@ namespace Malshinon_Project
             return 0;
         }
     }
-
-
-
-    }
 }
