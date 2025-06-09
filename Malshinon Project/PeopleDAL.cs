@@ -8,6 +8,8 @@ namespace Malshinon_Project
 {
     internal class PeopleDAL
     {
+        private string connStr = "server=localhost;user=root;password=;database=malshinon";
+
 
     }
 }
