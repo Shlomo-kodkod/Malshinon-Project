@@ -51,15 +51,17 @@ namespace Malshinon_Project
             return currName;
         }
 
-        public void ReporterLogin(PeopleDAL peopleDal)
+        public int ReporterLogin(PeopleDAL peopleDal)
         {
             string firstName = GetFirsName(peopleDal);
             string lastName = GetLastName();
 
             if (! peopleDal.IsPeopleExsist(firstName,lastName))
             {
-
+                peopleDal.AddPeople("reporter", firstName, lastName);
             }
+            int reported_id = peopleDal.GetIdByname(firstName, lastName);
+            return reported_id;
         }
     }
 }
