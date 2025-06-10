@@ -76,6 +76,8 @@ namespace Malshinon_Project
                         cmd.ExecuteNonQuery();
                     }
                 }
+
+                Console.WriteLine("New person successfully added!");
             }
             catch (Exception ex)
             {
@@ -99,6 +101,8 @@ namespace Malshinon_Project
                         cmd.ExecuteNonQuery();
                     }
                 }
+
+                Console.WriteLine($"Status changed successfully to {type}!");
             }
             catch (Exception ex)
             {
