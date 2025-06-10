@@ -38,7 +38,8 @@ namespace Malshinon_Project
 
         public int GetAvgTextLen(int targetId)
         {
-            string query = $"SELECT AVG(LENGTH(text)) AS avg FROM intelreports WHERE target_id = @id"; ;
+            string query = $"SELECT AVG(LENGTH(text)) AS avg FROM intelreports WHERE target_id = @id";
+            int idNum;
             try
             {
                 using (var conn = new MySqlConnection(connStr))
@@ -52,7 +53,7 @@ namespace Malshinon_Project
                         {
                             while (reader.Read())
                             {
-                                int idNum = reader.GetInt32("avg");
+                                idNum = reader.GetInt32("avg");
                                 return idNum;
                             }
                         }
