@@ -36,9 +36,10 @@ namespace Malshinon_Project
             }
         }
 
-        public int GetAvgTextLen(int targetId)
+        public double GetAvgTextLen(int reporterId)
         {
-            string query = $"SELECT AVG(LENGTH(text)) AS avg FROM intelreports WHERE target_id = @id"; ;
+            string query = $"SELECT AVG(LENGTH(text)) AS avg FROM intelreports WHERE reporter_id = @id";
+            double idNum;
             try
             {
                 using (var conn = new MySqlConnection(connStr))
@@ -46,13 +47,13 @@ namespace Malshinon_Project
                     conn.Open();
                     using (var cmd = new MySqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@id", targetId);
+                        cmd.Parameters.AddWithValue("@id", reporterId);
 
                         using (var reader = cmd.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                int idNum = reader.GetInt32("avg");
+                                idNum = reader.GetInt32("avg");
                                 return idNum;
                             }
                         }
@@ -66,5 +67,6 @@ namespace Malshinon_Project
             }
             return 0;
         }
+
     }
 }
