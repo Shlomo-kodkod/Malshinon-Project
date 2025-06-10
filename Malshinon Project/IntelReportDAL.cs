@@ -29,6 +29,8 @@ namespace Malshinon_Project
                         cmd.ExecuteNonQuery();
                     }
                 }
+
+                Console.WriteLine("The report was submitted successfully!");
             }
             catch (Exception ex)
             {

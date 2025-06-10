@@ -22,9 +22,10 @@ namespace Malshinon_Project
                  / / / / / /  __/ / / / /_/ / 
                 /_/ /_/ /_/\___/_/ /_/\__,_/ 
 
-                """);
-            Console.WriteLine("|0| Exit \n" +
-                "|1| Submit new report");
+                """ + "\n" +
+                "[0] Exit \n" +
+                "[1] Submit new report"
+                );
         }
 
         public bool IsValidChoice(string choice)
