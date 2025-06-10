@@ -11,38 +11,6 @@ namespace Malshinon_Project
     {
         private string connStr = "server=localhost;user=root;password=;database=malshinon";
 
-        public bool IsPeopleExsist(string first_name, string last_name)
-        {
-            string query = $"SELECT id FROM people WHERE first_name = @first_name AND last_name = @last_name;";
-            try
-            {
-                using (var conn = new MySqlConnection(connStr))
-                {
-                    conn.Open();
-                    using (var cmd = new MySqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@first_Name", first_name);
-                        cmd.Parameters.AddWithValue("@last_name", last_name);
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                int currId = reader.GetInt32("id");
-                                return true;
-                            }
-                        }
-                    }
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error : {ex.Message}");
-            }
-            return false;
-        }
-
         public Guid GenerateSecretCode()
         {
             return Guid.NewGuid();
@@ -213,5 +181,38 @@ namespace Malshinon_Project
             }
             return 0;
         }
+
+        public bool IsPeopleExsist(string first_name, string last_name)
+        {
+            return GetIdByname(first_name, last_name) != 0;
+        }
+
+        public bool IsUniqueName(string name)
+        {
+            string query = $"SELECT id FROM people WHERE first_name = @first_name";
+            try
+            {
+                using(var conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using(var cmd = new MySqlCommand(query,conn))
+                    {
+                        cmd.Parameters.AddWithValue("@first_name", name);
+
+                        using(var reader = cmd.ExecuteReader())
+                        {
+                            int currnID = reader.GetInt32("id");
+                            return currnID == 0;
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error : {ex.Message}");
+            }
+            return false;
+        }
+            
     }
 }
