@@ -10,25 +10,31 @@ namespace Malshinon_Project
     {
         public bool IsEmptyText(string text)
         {
-            return text.Length <= 0 && text.Contains(' ');
+            return text.Length <= 0;
         }
 
         public bool IsContainName(string text)
         {
             int upCaseCnt = 0;
-
-            foreach(char ch in text)
+            try
             {
-                if (char.IsUpper(ch))
+                string[] splitText = text.Split(' ');
+                foreach (string word in splitText)
                 {
-                    upCaseCnt++;
-                }
-                if (upCaseCnt >= 2)
-                {
-                    return true;
+                    if (char.IsUpper(word[0]))
+                    {
+                        upCaseCnt++;
+                    }
+                    else if ((!char.IsUpper(word[0])) && (upCaseCnt >= 2))
+                    {
+                        return true;
+                    }
                 }
             }
-
+            catch
+            {
+                return false;
+            }
             return false;
         }
 
@@ -40,7 +46,7 @@ namespace Malshinon_Project
                 Console.WriteLine("Enter your report: ");
                 text = Console.ReadLine();
             }
-            while ((!IsEmptyText(text)) && (IsContainName(text)));
+            while ((!IsEmptyText(text)) && (!IsContainName(text)));
 
             return text;
         }
@@ -62,18 +68,10 @@ namespace Malshinon_Project
                 }
             }
             int len = fullName.Count();
-            return new string[] { string.Join(" ", fullName.Slice(0, len - 2)), fullName[len - 1] };
+            return new string[] { string.Join(" ", fullName.Take(len - 1)), fullName[len - 1] };
         }
 
-        public void IsTypeUpdate(PeopleDAL peopleDal, int id)
-        {
-            string currType = peopleDal.GetPeopleRow(id).type;
-
-            if ((currType != "both") && (currType != "potential_agent"))
-            {
-                peopleDal.UpdateType(id, "both");
-            }
-        }
+        
 
 
         public void IsPotentialAgent(PeopleDAL peopleDal, IntelReportDAL intelReport, int report_id)
@@ -100,7 +98,6 @@ namespace Malshinon_Project
         {
             string text = GetReportText();
             string[] fullName = ExtractNameFromText(text);
-            IsTypeUpdate(peopleDal, reported_id);
             if (! peopleDal.IsPeopleExsist(fullName[0], fullName[1]))
             {
                 peopleDal.AddPeople("target", fullName[0], fullName[1]);
@@ -109,7 +106,6 @@ namespace Malshinon_Project
             intelReportDal.AddReport(reported_id, target_id, text);
             peopleDal.UpdateReportNum(reported_id);
             peopleDal.UpdateReportMentions(target_id);
-
             IsPotentialThreat(peopleDal, fullName);
         }
         
