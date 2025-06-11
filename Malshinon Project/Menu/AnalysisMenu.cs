@@ -23,12 +23,12 @@ namespace Malshinon_Project
 
             foreach(People p in potentialAgent)
             {
-                int id = peopleDal.GetIdByname(p.firstName, p.lastName);
+                int id = peopleDal.GetIdByName(p.firstName, p.lastName);
                 double avg = intelReportDal.GetAvgTextLen(id);
                 Console.WriteLine(
                     "_______________________________________\n" +
                     "Name: " + p.firstName + " " + p.lastName + "\n" +
-                    "Repors number: " + p.numReports + "\n" +
+                    "Reports number: " + p.numReports + "\n" +
                     "Average text length: " + avg + "\n" +
                     "---------------------------------------"
                     );
@@ -60,7 +60,7 @@ namespace Malshinon_Project
                 Console.WriteLine(
                     "_______________________________________\n" + 
                     "ID: " + a.targetId + "\n" +
-                    "CREATION TIME: " + a.creatAt + "\n" +
+                    "CREATION TIME: " + a.createAt + "\n" +
                     "ALERT REASON: " + a.reason + "\n" +
                     "---------------------------------------"
                     );

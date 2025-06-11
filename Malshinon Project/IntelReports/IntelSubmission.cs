@@ -29,12 +29,12 @@ namespace Malshinon_Project
             return true;
         }
 
-        internal bool IsSpiltAble(string text)
+        internal bool IsSplitAble(string text)
         {
             try
             {
                 string[] splitText = text.Split(' ');
-                return true;
+                return splitText.Length >= 2;
             }
             catch
             {
@@ -78,7 +78,7 @@ namespace Malshinon_Project
                 Console.WriteLine("Enter your report: ");
                 text = Console.ReadLine();
             }
-            while ((!CheckTextSize(text)) || (!IsSpiltAble(text)) || (!IsContainName(text)));
+            while ((!CheckTextSize(text)) || (!IsSplitAble(text)) || (!IsContainName(text)));
 
             return text;
         }
@@ -111,7 +111,7 @@ namespace Malshinon_Project
             {
                 peopleDal.UpdateType(report_id, "potential_agent");
             }
-            else if (peopleRow.numMentions > 0)
+            else 
             {
                 string newType = peopleRow.numMentions > 0 ? "both" : "reporter";
                 peopleDal.UpdateType(report_id, newType);
@@ -121,7 +121,7 @@ namespace Malshinon_Project
 
         internal void IsPotentialThreat(PeopleDAL peopleDal,string[] target_name)
         {
-            int target_id = peopleDal.GetIdByname(target_name[0], target_name[1]);
+            int target_id = peopleDal.GetIdByName(target_name[0], target_name[1]);
             int mentionNum = peopleDal.GetPeopleRow(target_id).numMentions;
             if (mentionNum >= 20)
             {
@@ -143,11 +143,11 @@ namespace Malshinon_Project
         {
             string text = GetReportText();
             string[] fullName = ExtractNameFromText(text);
-            if (! peopleDal.IsPeopleExsist(fullName[0], fullName[1]))
+            if (! peopleDal.IsPeopleExist(fullName[0], fullName[1]))
             {
                 peopleDal.AddPeople("target", fullName[0], fullName[1]);
             }
-            int target_id = peopleDal.GetIdByname(fullName[0], fullName[1]);
+            int target_id = peopleDal.GetIdByName(fullName[0], fullName[1]);
             intelReportDal.AddReport(reported_id, target_id, text);
             peopleDal.UpdateReportNum(reported_id);
             peopleDal.UpdateReportMentions(target_id);

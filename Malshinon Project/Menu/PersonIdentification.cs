@@ -10,7 +10,7 @@ namespace Malshinon_Project
     {
         internal bool IsValidName(string name)
         {
-            if ((name.Length < 1) || (name == " "))
+            if ((name.Length < 1) || (name == " ") || name is null)
             {
                 return false;
             }
@@ -58,12 +58,11 @@ namespace Malshinon_Project
             string lastName = GetLastName();
             int reported_id = 0;
 
-
-            if (! peopleDal.IsPeopleExsist(firstName,lastName))
+            if (! peopleDal.IsPeopleExist(firstName,lastName))
             {
                 peopleDal.AddPeople("reporter", firstName, lastName);
-                reported_id = peopleDal.GetIdByname(firstName, lastName);
             }
+            reported_id = peopleDal.GetIdByName(firstName, lastName);
             return reported_id;
         }
 
@@ -73,7 +72,7 @@ namespace Malshinon_Project
             string lastName = GetLastName();
             string secretCode;
 
-            if (peopleDal.IsPeopleExsist(firstName, lastName))
+            if (peopleDal.IsPeopleExist(firstName, lastName))
             {
                 secretCode = peopleDal.GetSecretCode(firstName, lastName);
                 return secretCode;

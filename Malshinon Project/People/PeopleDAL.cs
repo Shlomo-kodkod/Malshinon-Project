@@ -149,7 +149,7 @@ namespace Malshinon_Project
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-        internal int GetIdByname(string first_name, string last_name)
+        internal int GetIdByName(string first_name, string last_name)
         {
             string query = $"SELECT id FROM people WHERE first_name = @first_name AND last_name = @last_name;";
             try
@@ -159,7 +159,7 @@ namespace Malshinon_Project
                     conn.Open();
                     using (var cmd = new MySqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@first_Name", first_name);
+                        cmd.Parameters.AddWithValue("@first_name", first_name);
                         cmd.Parameters.AddWithValue("@last_name", last_name);
 
                         using (var reader = cmd.ExecuteReader())
@@ -181,9 +181,9 @@ namespace Malshinon_Project
             return 0;
         }
 
-        internal bool IsPeopleExsist(string first_name, string last_name)
+        internal bool IsPeopleExist(string first_name, string last_name)
         {
-            return GetIdByname(first_name, last_name) != 0;
+            return GetIdByName(first_name, last_name) != 0;
         }
 
         internal bool IsUniqueName(string name)
@@ -227,7 +227,7 @@ namespace Malshinon_Project
                     conn.Open();
                     using (var cmd = new MySqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@first_Name", first_name);
+                        cmd.Parameters.AddWithValue("@first_name", first_name);
                         cmd.Parameters.AddWithValue("@last_name", last_name);
 
                         using (var reader = cmd.ExecuteReader())
