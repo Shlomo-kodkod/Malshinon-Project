@@ -8,9 +8,37 @@ namespace Malshinon_Project
 {
     internal class IntelSubmission
     {
-        public bool IsEmptyText(string text)
+        public bool CheckTextSize(string text)
         {
-            return text.Length <= 0;
+            int len = text.Length;
+
+            if (len > 500)
+            {
+                Console.WriteLine("Text length error, try agin with shorter text");
+                return false;
+            }
+
+            if (len <= 0)
+            {
+                Console.WriteLine("Text empty error, try again");
+                return false;
+            }
+            
+            return true;
+        }
+
+        public bool IsSpiltAble(string text)
+        {
+            try
+            {
+                string[] splitText = text.Split(' ');
+                return true;
+            }
+            catch
+            {
+                Console.WriteLine("Text error, please don't make a few space in a row");
+            }
+            return false;
         }
 
         public bool IsContainName(string text)
@@ -33,6 +61,7 @@ namespace Malshinon_Project
             }
             catch
             {
+                Console.WriteLine("Text error, please enter target name");
                 return false;
             }
             return false;
@@ -46,7 +75,7 @@ namespace Malshinon_Project
                 Console.WriteLine("Enter your report: ");
                 text = Console.ReadLine();
             }
-            while ((!IsEmptyText(text)) && (!IsContainName(text)));
+            while ((!CheckTextSize(text)) && (!IsContainName(text)) && (!IsSpiltAble(text)));
 
             return text;
         }

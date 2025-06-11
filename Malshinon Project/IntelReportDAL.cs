@@ -70,5 +70,33 @@ namespace Malshinon_Project
             return 0;
         }
 
+        public bool IsHighRateReported(int target_id)
+        {
+            string query = $"SELECT COUNT(timestamp) AS count FROM intelreports WHERE target_id = @id AND timestamp BETWEEN NOW() - INTERVAL 15 MINUTE AND NOW()";
+            try
+            {
+                using (var conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@id", target_id);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int numMentions = reader.GetInt32("count");
+                                return numMentions > 3;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error : {ex.Message}");
+            }
+            return false;
+        }
     }
 }
