@@ -25,7 +25,7 @@ namespace Malshinon_Project
             return true;
         }
 
-        public string GetFirsName(PeopleDAL peopleDal)
+        public string GetFirstName(PeopleDAL peopleDal)
         {
             string currName = "";
             do
@@ -33,7 +33,7 @@ namespace Malshinon_Project
                 Console.WriteLine("Please enter your first name: ");
                 currName = Console.ReadLine();
             }
-            while ((!IsValidName(currName)) && (peopleDal.IsUniqueName(currName)));
+            while ((!IsValidName(currName)) || (!peopleDal.IsUniqueName(currName)));
 
             return char.ToUpper(currName[0]) + currName.Substring(1);
         }
@@ -54,7 +54,7 @@ namespace Malshinon_Project
 
         public int ReporterLogin(PeopleDAL peopleDal)
         {
-            string firstName = GetFirsName(peopleDal);
+            string firstName = GetFirstName(peopleDal);
             string lastName = GetLastName();
             int reported_id = 0;
 
@@ -69,7 +69,7 @@ namespace Malshinon_Project
 
         public string SecretCodeLogin(PeopleDAL peopleDal)
         {
-            string firstName = GetFirsName(peopleDal);
+            string firstName = GetFirstName(peopleDal);
             string lastName = GetLastName();
             string secretCode;
 
