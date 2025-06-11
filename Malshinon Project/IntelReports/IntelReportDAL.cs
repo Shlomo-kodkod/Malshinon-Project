@@ -11,7 +11,7 @@ namespace Malshinon_Project
     {
         private string connStr = "server=localhost;user=root;password=;database=malshinon";
 
-        public void AddReport(int reportId, int targetId, string Text)
+        internal void AddReport(int reportId, int targetId, string Text)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Malshinon_Project
             }
         }
 
-        public double GetAvgTextLen(int reporterId)
+        internal double GetAvgTextLen(int reporterId)
         {
             string query = $"SELECT AVG(LENGTH(text)) AS avg FROM intelreports WHERE reporter_id = @id";
             double idNum;
@@ -70,7 +70,7 @@ namespace Malshinon_Project
             return 0;
         }
 
-        public bool IsHighRateReported(int target_id)
+        internal bool IsHighRateReported(int target_id)
         {
             string query = $"SELECT COUNT(timestamp) AS count FROM intelreports WHERE target_id = @id AND timestamp BETWEEN NOW() - INTERVAL 15 MINUTE AND NOW()";
             try

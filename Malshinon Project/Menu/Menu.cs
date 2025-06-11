@@ -15,7 +15,7 @@ namespace Malshinon_Project
         private static IntelSubmission intelSubmission = new IntelSubmission();
         private static AlertsDal alertsDal = new AlertsDal();
         private static AnalysisMenu analysisMenu = new AnalysisMenu();
-        public void DisplayMenu()
+        internal void DisplayMenu()
         {
             //Thread.Sleep(1000);
             //Console.Clear();
@@ -38,7 +38,7 @@ namespace Malshinon_Project
                 );
         }
 
-        public bool IsValidChoice(string choice)
+        internal bool IsValidChoice(string choice)
         {
             if (!menuOptions.Contains(choice))
             {
@@ -47,7 +47,7 @@ namespace Malshinon_Project
             return menuOptions.Contains(choice);
         }
 
-        public int GetChoice()
+        internal int GetChoice()
         {
             string choice = "-1";
             do
@@ -60,7 +60,7 @@ namespace Malshinon_Project
             return int.Parse(choice);
         }
 
-        public void MakeChoice(int choice)
+        internal void MakeChoice(int choice)
         {
             switch(choice)
             {
@@ -83,8 +83,7 @@ namespace Malshinon_Project
 
             }
         }
-
-        public void RunMenu()
+        internal void RunMenu()
         {
             int choice = -1;
             do

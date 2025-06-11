@@ -8,7 +8,7 @@ namespace Malshinon_Project
 {
     internal class PersonIdentification
     {
-        public bool IsValidName(string name)
+        internal bool IsValidName(string name)
         {
             if ((name.Length < 1) || (name == " "))
             {
@@ -25,7 +25,7 @@ namespace Malshinon_Project
             return true;
         }
 
-        public string GetFirstName(PeopleDAL peopleDal)
+        internal string GetFirstName(PeopleDAL peopleDal)
         {
             string currName = "";
             do
@@ -38,7 +38,7 @@ namespace Malshinon_Project
             return char.ToUpper(currName[0]) + currName.Substring(1);
         }
 
-        public string GetLastName()
+        internal string GetLastName()
         {
             string currName = "";
             do
@@ -52,7 +52,7 @@ namespace Malshinon_Project
         }
 
 
-        public int ReporterLogin(PeopleDAL peopleDal)
+        internal int ReporterLogin(PeopleDAL peopleDal)
         {
             string firstName = GetFirstName(peopleDal);
             string lastName = GetLastName();
@@ -67,7 +67,7 @@ namespace Malshinon_Project
             return reported_id;
         }
 
-        public string SecretCodeLogin(PeopleDAL peopleDal)
+        internal string SecretCodeLogin(PeopleDAL peopleDal)
         {
             string firstName = GetFirstName(peopleDal);
             string lastName = GetLastName();

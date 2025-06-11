@@ -8,7 +8,7 @@ namespace Malshinon_Project
 {
     internal class AnalysisMenu
     {
-        public void PrintError(int listLen)
+        internal void PrintError(int listLen)
         {
 
             if (listLen == 0)
@@ -16,7 +16,7 @@ namespace Malshinon_Project
                 Console.WriteLine("No information was found in the system");
             }
         }
-        public void DisplayPotentialAgents(PeopleDAL peopleDal, IntelReportDAL intelReportDal)
+        internal void DisplayPotentialAgents(PeopleDAL peopleDal, IntelReportDAL intelReportDal)
         {
             List<People> potentialAgent = peopleDal.GetAllPotentialAgents();
             PrintError(potentialAgent.Count);
@@ -34,8 +34,7 @@ namespace Malshinon_Project
                     );
             }
         }
-
-        public void DisplayDangerousTargets(PeopleDAL peopleDal, IntelReportDAL intelReportDal)
+        internal void DisplayDangerousTargets(PeopleDAL peopleDal, IntelReportDAL intelReportDal)
         {
             List<People> dangerousTarget = peopleDal.GetAllDangerousTargets();
             PrintError(dangerousTarget.Count);
@@ -51,7 +50,7 @@ namespace Malshinon_Project
             }
         }
 
-        public void DisplayActiveAlerts(AlertsDal alertsDal)
+        internal void DisplayActiveAlerts(AlertsDal alertsDal)
         {
             List<Alerts> activeAlerts = alertsDal.GetAllAlerts();
             PrintError(activeAlerts.Count);
@@ -68,11 +67,5 @@ namespace Malshinon_Project
 
             }
         }
-
-
-
-
-
-
     }
 }
