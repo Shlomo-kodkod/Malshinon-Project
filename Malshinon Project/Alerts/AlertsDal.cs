@@ -12,7 +12,7 @@ namespace Malshinon_Project
     {
         private string connStr = "server=localhost;user=root;password=;database=malshinon";
 
-        public void AddAlert(int target_id, string reason)
+        internal void AddAlert(int target_id, string reason)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Malshinon_Project
             }
         }
 
-        public List<Alerts> GetAllAlerts()
+        internal List<Alerts> GetAllAlerts()
         {
             List<Alerts> result = new List<Alerts>();
             string query = $"SELECT * FROM alerts"; ;
@@ -72,8 +72,8 @@ namespace Malshinon_Project
             return result;
         }
 
-       
-        public void UpdateAlerts(IntelReportDAL intelReportDal, int target_id)
+
+        internal void UpdateAlerts(IntelReportDAL intelReportDal, int target_id)
         {
             if (intelReportDal.IsHighRateReported(target_id))
             {

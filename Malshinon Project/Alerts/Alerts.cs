@@ -8,12 +8,12 @@ namespace Malshinon_Project
 {
     internal class Alerts
     {
-        public int id;
-        public int targetId;
-        public DateTime creatAt;
-        public string reason;
+        internal int id;
+        internal int targetId;
+        internal DateTime creatAt;
+        internal string reason;
 
-        public Alerts(int Id, int TargetId, DateTime CreatAt, string Reason)
+        internal Alerts(int Id, int TargetId, DateTime CreatAt, string Reason)
         {
             this.id = Id;
             this.targetId = TargetId;

@@ -10,7 +10,7 @@ namespace Malshinon_Project
 {
     internal class IntelSubmission
     {
-        public bool CheckTextSize(string text)
+        internal bool CheckTextSize(string text)
         {
             int len = text.Length;
 
@@ -29,7 +29,7 @@ namespace Malshinon_Project
             return true;
         }
 
-        public bool IsSpiltAble(string text)
+        internal bool IsSpiltAble(string text)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Malshinon_Project
             return false;
         }
 
-        public bool IsContainName(string text)
+        internal bool IsContainName(string text)
         {
             int upCaseCnt = 0;
             try
@@ -70,7 +70,7 @@ namespace Malshinon_Project
             return false;
         }
 
-        public string GetReportText()
+        internal string GetReportText()
         {
             string text = "";
             do
@@ -83,7 +83,7 @@ namespace Malshinon_Project
             return text;
         }
 
-        public string[] ExtractNameFromText(string text)
+        internal string[] ExtractNameFromText(string text)
         {
             string[] splitText = text.Split(' ');
             List<string> fullName = new List<string>();
@@ -103,10 +103,7 @@ namespace Malshinon_Project
             return new string[] { string.Join(" ", fullName.Take(len - 1)), fullName[len - 1] };
         }
 
-        
-
-
-        public void IsPotentialAgent(PeopleDAL peopleDal, IntelReportDAL intelReport, int report_id)
+        internal void IsPotentialAgent(PeopleDAL peopleDal, IntelReportDAL intelReport, int report_id)
         {
             People peopleRow = peopleDal.GetPeopleRow(report_id);
             double textAvg = intelReport.GetAvgTextLen(report_id);
@@ -122,7 +119,7 @@ namespace Malshinon_Project
             }
         }
 
-        public void IsPotentialThreat(PeopleDAL peopleDal,string[] target_name)
+        internal void IsPotentialThreat(PeopleDAL peopleDal,string[] target_name)
         {
             int target_id = peopleDal.GetIdByname(target_name[0], target_name[1]);
             int mentionNum = peopleDal.GetPeopleRow(target_id).numMentions;
@@ -132,7 +129,7 @@ namespace Malshinon_Project
             }
         }
 
-        public void IsTypeUpdate(PeopleDAL peopleDal, int id)
+        internal void IsTypeUpdate(PeopleDAL peopleDal, int id)
         {
             People peopleRow = peopleDal.GetPeopleRow(id);
 
@@ -142,7 +139,7 @@ namespace Malshinon_Project
             } 
         }
 
-        public void SubmitReport(PeopleDAL peopleDal, IntelReportDAL intelReportDal, AlertsDal alertsDal, int reported_id)
+        internal void SubmitReport(PeopleDAL peopleDal, IntelReportDAL intelReportDal, AlertsDal alertsDal, int reported_id)
         {
             string text = GetReportText();
             string[] fullName = ExtractNameFromText(text);

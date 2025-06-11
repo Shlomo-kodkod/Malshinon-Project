@@ -8,11 +8,11 @@ namespace Malshinon_Project
 {
     internal class IntelReport
     {
-        int id;
-        int reporterId;
-        int targetId;
-        string text;
-        DateTime timestemp;
+        internal int id;
+        internal int reporterId;
+        internal int targetId;
+        internal string text;
+        internal DateTime timestemp;
 
         internal IntelReport(int Id, int ReporterId, int TargetId, string Text, DateTime TimeStemp)
         {

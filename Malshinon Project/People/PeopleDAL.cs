@@ -11,12 +11,12 @@ namespace Malshinon_Project
     {
         private string connStr = "server=localhost;user=root;password=;database=malshinon";
 
-        public Guid GenerateSecretCode()
+        internal Guid GenerateSecretCode()
         {
             return Guid.NewGuid();
         }
 
-        public People GetPeopleRow(int id)
+        internal People GetPeopleRow(int id)
         {
             string query = $"SELECT * FROM people WHERE id = @id";;
             People currPeople = new People();
@@ -56,8 +56,7 @@ namespace Malshinon_Project
             return currPeople;
         }
 
-
-        public void AddPeople(string type, string firstName, string lastName)
+        internal void AddPeople(string type, string firstName, string lastName)
         {
             try
             {
@@ -85,7 +84,7 @@ namespace Malshinon_Project
             }
         }
 
-        public void UpdateType(int id, string type)
+        internal void UpdateType(int id, string type)
         {
             try
             {
@@ -110,7 +109,7 @@ namespace Malshinon_Project
             }
         }
 
-        public void UpdateReportNum(int id)
+        internal void UpdateReportNum(int id)
         {
             try
             {
@@ -130,9 +129,7 @@ namespace Malshinon_Project
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
-
-        public void UpdateReportMentions(int id)
+        internal void UpdateReportMentions(int id)
         {
             try
             {
@@ -152,9 +149,7 @@ namespace Malshinon_Project
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
-
-
-        public int GetIdByname(string first_name, string last_name)
+        internal int GetIdByname(string first_name, string last_name)
         {
             string query = $"SELECT id FROM people WHERE first_name = @first_name AND last_name = @last_name;";
             try
@@ -186,12 +181,12 @@ namespace Malshinon_Project
             return 0;
         }
 
-        public bool IsPeopleExsist(string first_name, string last_name)
+        internal bool IsPeopleExsist(string first_name, string last_name)
         {
             return GetIdByname(first_name, last_name) != 0;
         }
 
-        public bool IsUniqueName(string name)
+        internal bool IsUniqueName(string name)
         {
             string query = "SELECT COUNT(*) AS count FROM people WHERE first_name = @first_name";
             try
@@ -222,7 +217,7 @@ namespace Malshinon_Project
             return false;
         }
 
-        public string GetSecretCode(string first_name, string last_name)
+        internal string GetSecretCode(string first_name, string last_name)
         {
             string query = $"SELECT secret_code FROM people WHERE first_name = @first_name AND last_name = @last_name;";
             try
@@ -254,7 +249,7 @@ namespace Malshinon_Project
             return "Secret code not found please try again later";
         }
 
-        public List<People> GetAllDangerousTargets()
+        internal List<People> GetAllDangerousTargets()
         {
             List<People> result = new List<People>();
             string query = $"SELECT * FROM people WHERE num_mentions >= 20";
@@ -292,7 +287,7 @@ namespace Malshinon_Project
             return result;
         }
 
-        public List<People> GetAllPotentialAgents()
+        internal List<People> GetAllPotentialAgents()
         {
             List<People> result = new List<People>();
             string query = $"SELECT * FROM people WHERE type = 'potential_agent'";
@@ -329,7 +324,6 @@ namespace Malshinon_Project
             }
             return result;
         }
-
 
     }
 
