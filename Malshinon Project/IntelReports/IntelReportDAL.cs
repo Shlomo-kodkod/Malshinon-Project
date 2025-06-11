@@ -55,7 +55,7 @@ namespace Malshinon_Project
                         {
                             while (reader.Read())
                             {
-                                idNum = reader.GetInt32("avg");
+                                idNum = reader.GetDouble("avg");
                                 return idNum;
                             }
                         }

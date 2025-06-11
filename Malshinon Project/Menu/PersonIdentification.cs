@@ -35,6 +35,7 @@ namespace Malshinon_Project
             }
             while ((!IsValidName(currName)) || (!peopleDal.IsUniqueName(currName)));
 
+            currName = currName.ToLower();
             return char.ToUpper(currName[0]) + currName.Substring(1);
         }
 
@@ -48,6 +49,7 @@ namespace Malshinon_Project
             }
             while (!IsValidName(currName));
 
+            currName = currName.ToLower();
             return char.ToUpper(currName[0]) + currName.Substring(1);
         }
 
