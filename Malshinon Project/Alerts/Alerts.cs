@@ -10,14 +10,14 @@ namespace Malshinon_Project
     {
         internal int id;
         internal int targetId;
-        internal DateTime creatAt;
+        internal DateTime createAt;
         internal string reason;
 
         internal Alerts(int Id, int TargetId, DateTime CreatAt, string Reason)
         {
             this.id = Id;
             this.targetId = TargetId;
-            this.creatAt = CreatAt;
+            this.createAt = CreatAt;
             this.reason = Reason;
         }
     }
