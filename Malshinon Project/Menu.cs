@@ -8,24 +8,33 @@ namespace Malshinon_Project
 {
     internal class Menu
     {
-        private static string[] menuOptions = new string[] { "0", "1", "2" };
+        private static string[] menuOptions = new string[] { "0", "1", "2" , "3", "4", "5"};
         private static PeopleDAL peopleDal = new PeopleDAL();
         private static IntelReportDAL intelReporterDal = new IntelReportDAL();
         private static PersonIdentification personIdentification = new PersonIdentification();
         private static IntelSubmission intelSubmission = new IntelSubmission();
+        private static AlertsDal alertsDal = new AlertsDal();
+        private static AnalysisMenu analysisMenu = new AnalysisMenu();
         public void DisplayMenu()
         {
+            Thread.Sleep(1000);
+            Console.Clear();
             Console.WriteLine(
                 """
                    ____ ___  ___  ____  __  __
                   / __ `__ \/ _ \/ __ \/ / / /
                  / / / / / /  __/ / / / /_/ / 
                 /_/ /_/ /_/\___/_/ /_/\__,_/ 
-
-                """ + "\n" +
-                "[0] Exit \n" +
-                "[1] Submit new report\n" +
-                "[2] Get your secret code"
+            
+                *****************************
+                [0] Exit
+                [1] Submit new report
+                [2] Get your secret code
+                [3] Display potential agents
+                [4] Display dangerous targets
+                [5] Display active alerts
+                *****************************
+                """ + "\n" 
                 );
         }
 
@@ -62,7 +71,15 @@ namespace Malshinon_Project
                 case 2:
                     Console.WriteLine(personIdentification.SecretCodeLogin(peopleDal));
                     break;
-
+                case 3:
+                    analysisMenu.DisplayPotentialAgents(peopleDal,intelReporterDal);
+                    break;
+                case 4:
+                    analysisMenu.DisplayDangerousTargets(peopleDal,intelReporterDal);
+                    break;
+                case 5:
+                    analysisMenu.DisplayActiveAlerts(alertsDal);
+                    break;
 
             }
         }
@@ -77,6 +94,8 @@ namespace Malshinon_Project
                 MakeChoice(choice);
             }
             while (choice != 0);
+
+            Console.WriteLine("Bey bey !!!");
         }
     }
 }

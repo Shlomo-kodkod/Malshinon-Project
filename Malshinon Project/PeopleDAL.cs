@@ -250,6 +250,83 @@ namespace Malshinon_Project
             return "Secret code not found please try again later";
         }
 
+        public List<People> GetAllDangerousTargets()
+        {
+            List<People> result = new List<People>();
+            string query = $"SELECT * FROM people WHERE num_mentions >= 20";
+            try
+            {
+                using (var conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int idNum = reader.GetInt32("id");
+                                string firstName = reader.GetString("first_name");
+                                string lastName = reader.GetString("last_name");
+                                string secretCode = reader.GetString("secret_code");
+                                string type = reader.GetString("type");
+                                int numReports = reader.GetInt32("num_reports");
+                                int numMentions = reader.GetInt32("num_mentions");
+
+                               People currPeople = new People(idNum, firstName, lastName, secretCode, type, numReports, numMentions);
+                                result.Add(currPeople);
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error : {ex.Message}");
+            }
+            return result;
+        }
+
+        public List<People> GetAllPotentialAgents()
+        {
+            List<People> result = new List<People>();
+            string query = $"SELECT * FROM people WHERE type = 'potential_agent'";
+            try
+            {
+                using (var conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int idNum = reader.GetInt32("id");
+                                string firstName = reader.GetString("first_name");
+                                string lastName = reader.GetString("last_name");
+                                string secretCode = reader.GetString("secret_code");
+                                string type = reader.GetString("type");
+                                int numReports = reader.GetInt32("num_reports");
+                                int numMentions = reader.GetInt32("num_mentions");
+
+                                People currPeople = new People(idNum, firstName, lastName, secretCode, type, numReports, numMentions);
+                                result.Add(currPeople);
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error : {ex.Message}");
+            }
+            return result;
+        }
+
+
     }
 
 }

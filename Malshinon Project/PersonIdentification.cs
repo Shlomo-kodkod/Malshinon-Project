@@ -14,9 +14,9 @@ namespace Malshinon_Project
             {
                 return false;
             }
-            foreach(char ch in name)
+            foreach (char ch in name)
             {
-                if (! char.IsLetter(ch))
+                if ((!char.IsLetter(ch)) && ( ch != ' '))
                 {
                     Console.WriteLine("Invalid name pelease try again");
                     return false;
@@ -51,15 +51,6 @@ namespace Malshinon_Project
             return char.ToUpper(currName[0]) + currName.Substring(1);
         }
 
-        public void IsTypeUpdate(PeopleDAL peopleDal, int id)
-        {
-            string currType = peopleDal.GetPeopleRow(id).type;
-
-            if ((currType != "both") && (currType != "potential_agent"))
-            {
-                peopleDal.UpdateType(id, "both");
-            }
-        }
 
         public int ReporterLogin(PeopleDAL peopleDal)
         {
@@ -67,13 +58,8 @@ namespace Malshinon_Project
             string lastName = GetLastName();
             int reported_id = 0;
 
-            if (peopleDal.IsPeopleExsist(firstName,lastName))
-            {
-                reported_id = peopleDal.GetIdByname(firstName, lastName);
-                IsTypeUpdate(peopleDal, reported_id);
-            }
 
-            else if (! peopleDal.IsPeopleExsist(firstName,lastName))
+            if (! peopleDal.IsPeopleExsist(firstName,lastName))
             {
                 peopleDal.AddPeople("reporter", firstName, lastName);
                 reported_id = peopleDal.GetIdByname(firstName, lastName);

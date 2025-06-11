@@ -26,6 +26,15 @@ CREATE TABLE IntelReports(
     FOREIGN KEY (target_id) REFERENCES People (id)
     );
 
+CREATE TABLE Alerts(
+    id INT AUTO_INCREMENT,
+    target_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    reason VARCHAR(250),
+    PRIMARY KEY(id),
+    FOREIGN KEY (target_id) REFERENCES People (id)
+    );
+
     
 
     

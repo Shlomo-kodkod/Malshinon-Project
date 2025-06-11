@@ -8,9 +8,37 @@ namespace Malshinon_Project
 {
     internal class IntelSubmission
     {
-        public bool IsEmptyText(string text)
+        public bool CheckTextSize(string text)
         {
-            return text.Length <= 0;
+            int len = text.Length;
+
+            if (len > 500)
+            {
+                Console.WriteLine("Text length error, try agin with shorter text");
+                return false;
+            }
+
+            if (len <= 0)
+            {
+                Console.WriteLine("Text empty error, try again");
+                return false;
+            }
+            
+            return true;
+        }
+
+        public bool IsSpiltAble(string text)
+        {
+            try
+            {
+                string[] splitText = text.Split(' ');
+                return true;
+            }
+            catch
+            {
+                Console.WriteLine("Text error, please don't make a few space in a row");
+            }
+            return false;
         }
 
         public bool IsContainName(string text)
@@ -33,6 +61,7 @@ namespace Malshinon_Project
             }
             catch
             {
+                Console.WriteLine("Text error, please enter target name");
                 return false;
             }
             return false;
@@ -46,7 +75,7 @@ namespace Malshinon_Project
                 Console.WriteLine("Enter your report: ");
                 text = Console.ReadLine();
             }
-            while ((!IsEmptyText(text)) && (!IsContainName(text)));
+            while ((!CheckTextSize(text)) && (!IsContainName(text)) && (!IsSpiltAble(text)));
 
             return text;
         }
@@ -76,11 +105,17 @@ namespace Malshinon_Project
 
         public void IsPotentialAgent(PeopleDAL peopleDal, IntelReportDAL intelReport, int report_id)
         {
-            int reportNum = peopleDal.GetPeopleRow(report_id).numReports;
+            People peopleRow = peopleDal.GetPeopleRow(report_id);
             double textAvg = intelReport.GetAvgTextLen(report_id);
-            if ((reportNum >= 10) && (textAvg >= 100))
+            if ((peopleRow.numReports >= 10) && (textAvg >= 100))
             {
                 peopleDal.UpdateType(report_id, "potential_agent");
+            }
+            else if (peopleRow.numMentions > 0)
+            {
+                string newType = peopleRow.numMentions > 0 ? "both" : "reporter";
+                peopleDal.UpdateType(report_id, newType);
+
             }
         }
 
@@ -92,6 +127,16 @@ namespace Malshinon_Project
             {
                 Console.WriteLine("Is Potential Threat !");
             }
+        }
+
+        public void IsTypeUpdate(PeopleDAL peopleDal, int id)
+        {
+            People peopleRow = peopleDal.GetPeopleRow(id);
+
+            if ((peopleRow.numReports > 0) && (peopleRow.numMentions > 0))
+            {
+                peopleDal.UpdateType(id,"both");
+            } 
         }
 
         public void SubmitReport(PeopleDAL peopleDal, IntelReportDAL intelReportDal, int reported_id)
@@ -107,6 +152,8 @@ namespace Malshinon_Project
             peopleDal.UpdateReportNum(reported_id);
             peopleDal.UpdateReportMentions(target_id);
             IsPotentialThreat(peopleDal, fullName);
+            IsPotentialAgent(peopleDal, intelReportDal, reported_id);
+            IsTypeUpdate(peopleDal, target_id);
         }
         
     }
