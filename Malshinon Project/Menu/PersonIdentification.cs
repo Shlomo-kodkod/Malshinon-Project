@@ -18,7 +18,7 @@ namespace Malshinon_Project
             {
                 if ((!char.IsLetter(ch)) && ( ch != ' '))
                 {
-                    Console.WriteLine("Invalid name pelease try again");
+                    Console.WriteLine("Invalid name. Please try again.");
                     return false;
                 }
             }

@@ -42,7 +42,7 @@ namespace Malshinon_Project
         {
             if (!menuOptions.Contains(choice))
             {
-                Console.WriteLine("Invalid value please try again ");
+                Console.WriteLine("Invalid value please try again. ");
             }
             return menuOptions.Contains(choice);
         }
@@ -94,7 +94,7 @@ namespace Malshinon_Project
             }
             while (choice != 0);
 
-            Console.WriteLine("Bey bey !!!");
+            Console.WriteLine("Thank you for using Malshinon. Goodbye!");
         }
     }
 }
