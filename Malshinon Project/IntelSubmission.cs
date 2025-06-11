@@ -76,11 +76,17 @@ namespace Malshinon_Project
 
         public void IsPotentialAgent(PeopleDAL peopleDal, IntelReportDAL intelReport, int report_id)
         {
-            int reportNum = peopleDal.GetPeopleRow(report_id).numReports;
+            People peopleRow = peopleDal.GetPeopleRow(report_id);
             double textAvg = intelReport.GetAvgTextLen(report_id);
-            if ((reportNum >= 10) && (textAvg >= 100))
+            if ((peopleRow.numReports >= 10) && (textAvg >= 100))
             {
                 peopleDal.UpdateType(report_id, "potential_agent");
+            }
+            else if (peopleRow.numMentions > 0)
+            {
+                string newType = peopleRow.numMentions > 0 ? "both" : "reporter";
+                peopleDal.UpdateType(report_id, newType);
+
             }
         }
 
@@ -92,6 +98,16 @@ namespace Malshinon_Project
             {
                 Console.WriteLine("Is Potential Threat !");
             }
+        }
+
+        public void IsTypeUpdate(PeopleDAL peopleDal, int id)
+        {
+            People peopleRow = peopleDal.GetPeopleRow(id);
+
+            if ((peopleRow.numReports > 0) && (peopleRow.numMentions > 0))
+            {
+                peopleDal.UpdateType(id,"both");
+            } 
         }
 
         public void SubmitReport(PeopleDAL peopleDal, IntelReportDAL intelReportDal, int reported_id)
@@ -107,6 +123,8 @@ namespace Malshinon_Project
             peopleDal.UpdateReportNum(reported_id);
             peopleDal.UpdateReportMentions(target_id);
             IsPotentialThreat(peopleDal, fullName);
+            IsPotentialAgent(peopleDal, intelReportDal, reported_id);
+            IsTypeUpdate(peopleDal, target_id);
         }
         
     }
