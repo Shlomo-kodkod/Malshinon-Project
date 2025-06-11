@@ -16,13 +16,13 @@ namespace Malshinon_Project
 
             if (len >= 500)
             {
-                Console.WriteLine("Text length error, try agin with shorter text");
+                Console.WriteLine("Text length error. Please try again with a shorter message.");
                 return false;
             }
 
             if (len <= 0)
             {
-                Console.WriteLine("Text empty error, try again");
+                Console.WriteLine("Text is empty. Please enter a valid report.");
                 return false;
             }
             
@@ -38,7 +38,7 @@ namespace Malshinon_Project
             }
             catch
             {
-                Console.WriteLine("Text error, please don't make a few space in a row");
+                Console.WriteLine("Formatting error. Please avoid using multiple consecutive spaces.");
             }
             return false;
         }
@@ -60,11 +60,11 @@ namespace Malshinon_Project
                         return true;
                     }
                 }
-                Console.WriteLine(upCaseCnt >= 2 ? "" : "Text error, please enter target name with upper case");
+                Console.WriteLine(upCaseCnt >= 2 ? "" : "Text error. Please ensure the target's name starts with uppercase letters.");
             }
             catch
             {
-                Console.WriteLine("Text error, please enter target name with one space between words");
+                Console.WriteLine("Text error. Please enter the target's full name with a single space between the first and last name.");
                 return false;
             }
             return false;
