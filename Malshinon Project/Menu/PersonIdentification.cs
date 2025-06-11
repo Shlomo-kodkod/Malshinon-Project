@@ -38,6 +38,19 @@ namespace Malshinon_Project
             return char.ToUpper(currName[0]) + currName.Substring(1);
         }
 
+        internal string GetExistingFirstName(PeopleDAL peopleDal)
+        {
+            string currName = "";
+            do
+            {
+                Console.WriteLine("Please enter your first name: ");
+                currName = Console.ReadLine();
+            }
+            while (!IsValidName(currName));
+
+            return char.ToUpper(currName[0]) + currName.Substring(1);
+        }
+
         internal string GetLastName()
         {
             string currName = "";
@@ -68,7 +81,7 @@ namespace Malshinon_Project
 
         internal string SecretCodeLogin(PeopleDAL peopleDal)
         {
-            string firstName = GetFirstName(peopleDal);
+            string firstName = GetExistingFirstName(peopleDal);
             string lastName = GetLastName();
             string secretCode;
 
