@@ -8,7 +8,7 @@ namespace Malshinon_Project
 {
     internal class Menu
     {
-        private static string[] menuOptions = new string[] { "0", "1" };
+        private static string[] menuOptions = new string[] { "0", "1", "2" };
         private static PeopleDAL peopleDal = new PeopleDAL();
         private static IntelReportDAL intelReporterDal = new IntelReportDAL();
         private static PersonIdentification personIdentification = new PersonIdentification();
@@ -24,7 +24,8 @@ namespace Malshinon_Project
 
                 """ + "\n" +
                 "[0] Exit \n" +
-                "[1] Submit new report"
+                "[1] Submit new report\n" +
+                "[2] Get your secret code"
                 );
         }
 
@@ -58,6 +59,10 @@ namespace Malshinon_Project
                     int reporter_id = personIdentification.ReporterLogin(peopleDal);
                     intelSubmission.SubmitReport(peopleDal, intelReporterDal, reporter_id);
                     break;
+                case 2:
+                    Console.WriteLine(personIdentification.SecretCodeLogin(peopleDal));
+                    break;
+
 
             }
         }

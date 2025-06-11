@@ -217,6 +217,39 @@ namespace Malshinon_Project
             }
             return false;
         }
-            
+
+        public string GetSecretCode(string first_name, string last_name)
+        {
+            string query = $"SELECT secret_code FROM people WHERE first_name = @first_name AND last_name = @last_name;";
+            try
+            {
+                using (var conn = new MySqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@first_Name", first_name);
+                        cmd.Parameters.AddWithValue("@last_name", last_name);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string code = reader.GetString("secret_code");
+                                return code;
+                            }
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error : {ex.Message}");
+            }
+            return "Secret code not found please try again later";
+        }
+
     }
+
 }

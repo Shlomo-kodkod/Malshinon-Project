@@ -80,6 +80,20 @@ namespace Malshinon_Project
             }
             return reported_id;
         }
+
+        public string SecretCodeLogin(PeopleDAL peopleDal)
+        {
+            string firstName = GetFirsName(peopleDal);
+            string lastName = GetLastName();
+            string secretCode;
+
+            if (peopleDal.IsPeopleExsist(firstName, lastName))
+            {
+                secretCode = peopleDal.GetSecretCode(firstName, lastName);
+                return secretCode;
+            }
+            return "This name is not registered in the system";
+        }
     }
 }
 
