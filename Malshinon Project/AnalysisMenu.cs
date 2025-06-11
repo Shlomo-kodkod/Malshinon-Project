@@ -25,9 +25,13 @@ namespace Malshinon_Project
             {
                 int id = peopleDal.GetIdByname(p.firstName, p.lastName);
                 double avg = intelReportDal.GetAvgTextLen(id);
-                Console.WriteLine(p.firstName + " " + p.lastName + "\n" +
-                    p.numReports + "\n" +
-                    avg + "\n");
+                Console.WriteLine(
+                    "_______________________________________\n" +
+                    "Name: " + p.firstName + " " + p.lastName + "\n" +
+                    "Repors number: " + p.numReports + "\n" +
+                    "Average text length: " + avg + "\n" +
+                    "---------------------------------------"
+                    );
             }
         }
 
@@ -38,8 +42,12 @@ namespace Malshinon_Project
 
             foreach (People p in dangerousTarget)
             {
-                Console.WriteLine(p.firstName + " " + p.lastName + "\n" +
-                    p.numMentions + "\n");
+                Console.WriteLine(
+                    "_______________________________________\n" +
+                    "Name: " + p.firstName + " " + p.lastName + "\n" +
+                    "Mentions number: " + p.numMentions + "\n" +
+                    "---------------------------------------"
+                    );
             }
         }
 
@@ -50,9 +58,14 @@ namespace Malshinon_Project
 
             foreach(Alerts a in activeAlerts)
             {
-                Console.WriteLine(a.targetId + "\n" +
-                    a.creatAt + "\n" +
-                    a.reason + "\n");
+                Console.WriteLine(
+                    "_______________________________________\n" + 
+                    "ID: " + a.targetId + "\n" +
+                    "CREATION TIME: " + a.creatAt + "\n" +
+                    "ALERT REASON: " + a.reason + "\n" +
+                    "---------------------------------------"
+                    );
+
             }
         }
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using ZstdSharp.Unsafe;
 
 namespace Malshinon_Project
 {
@@ -12,7 +14,7 @@ namespace Malshinon_Project
         {
             int len = text.Length;
 
-            if (len > 500)
+            if (len >= 500)
             {
                 Console.WriteLine("Text length error, try agin with shorter text");
                 return false;
@@ -58,10 +60,11 @@ namespace Malshinon_Project
                         return true;
                     }
                 }
+                Console.WriteLine(upCaseCnt >= 2 ? "" : "Text error, please enter target name with upper case");
             }
             catch
             {
-                Console.WriteLine("Text error, please enter target name");
+                Console.WriteLine("Text error, please enter target name with one space between words");
                 return false;
             }
             return false;
@@ -75,7 +78,7 @@ namespace Malshinon_Project
                 Console.WriteLine("Enter your report: ");
                 text = Console.ReadLine();
             }
-            while ((!CheckTextSize(text)) && (!IsContainName(text)) && (!IsSpiltAble(text)));
+            while ((!CheckTextSize(text)) || (!IsSpiltAble(text)) || (!IsContainName(text)));
 
             return text;
         }
@@ -139,7 +142,7 @@ namespace Malshinon_Project
             } 
         }
 
-        public void SubmitReport(PeopleDAL peopleDal, IntelReportDAL intelReportDal, int reported_id)
+        public void SubmitReport(PeopleDAL peopleDal, IntelReportDAL intelReportDal, AlertsDal alertsDal, int reported_id)
         {
             string text = GetReportText();
             string[] fullName = ExtractNameFromText(text);
@@ -154,6 +157,7 @@ namespace Malshinon_Project
             IsPotentialThreat(peopleDal, fullName);
             IsPotentialAgent(peopleDal, intelReportDal, reported_id);
             IsTypeUpdate(peopleDal, target_id);
+            alertsDal.UpdateAlerts(intelReportDal,target_id);
         }
         
     }

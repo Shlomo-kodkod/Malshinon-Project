@@ -73,7 +73,13 @@ namespace Malshinon_Project
         }
 
        
-    
+        public void UpdateAlerts(IntelReportDAL intelReportDal, int target_id)
+        {
+            if (intelReportDal.IsHighRateReported(target_id))
+            {
+                AddAlert(target_id, "Reporting at a high rate");
+            }
+        }
     }
     
 }

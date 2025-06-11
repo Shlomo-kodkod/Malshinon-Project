@@ -17,8 +17,8 @@ namespace Malshinon_Project
         private static AnalysisMenu analysisMenu = new AnalysisMenu();
         public void DisplayMenu()
         {
-            Thread.Sleep(1000);
-            Console.Clear();
+            //Thread.Sleep(1000);
+            //Console.Clear();
             Console.WriteLine(
                 """
                    ____ ___  ___  ____  __  __
@@ -66,7 +66,7 @@ namespace Malshinon_Project
             {
                 case 1:
                     int reporter_id = personIdentification.ReporterLogin(peopleDal);
-                    intelSubmission.SubmitReport(peopleDal, intelReporterDal, reporter_id);
+                    intelSubmission.SubmitReport(peopleDal, intelReporterDal, alertsDal,reporter_id);
                     break;
                 case 2:
                     Console.WriteLine(personIdentification.SecretCodeLogin(peopleDal));

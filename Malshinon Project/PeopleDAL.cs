@@ -193,7 +193,7 @@ namespace Malshinon_Project
 
         public bool IsUniqueName(string name)
         {
-            string query = $"SELECT id FROM people WHERE first_name = @first_name";
+            string query = "SELECT COUNT(*) AS count FROM people WHERE first_name = @first_name";
             try
             {
                 using(var conn = new MySqlConnection(connStr))
@@ -205,8 +205,12 @@ namespace Malshinon_Project
 
                         using(var reader = cmd.ExecuteReader())
                         {
-                            int currnID = reader.GetInt32("id");
-                            return currnID == 0;
+                            if (reader.Read())
+                            {
+                                int countName = reader.GetInt32("count");
+                                return countName == 0;
+                            }
+                            
                         }
                     }
                 }
