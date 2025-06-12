@@ -68,15 +68,21 @@ namespace Malshinon_Project
 
 
         internal int ReporterLogin(PeopleDAL peopleDal)
-        {
-            string firstName = GetFirstName(peopleDal);
-            string lastName = GetLastName();
+        { 
             int reported_id = 0;
+            string firstName = GetExistingFirstName(peopleDal);
+            string lastName = GetLastName();
 
-            if (! peopleDal.IsPeopleExist(firstName,lastName))
+            if (!peopleDal.IsPeopleExist(firstName,lastName))
             {
-                peopleDal.AddPeople("reporter", firstName, lastName);
+                if (!peopleDal.IsUniqueName(firstName))
+                {
+                    Console.WriteLine("This name is already taken. Please try again with a different name.");
+                    firstName = GetFirstName(peopleDal);
+                    lastName = GetLastName();
+                }
             }
+
             reported_id = peopleDal.GetIdByName(firstName, lastName);
             return reported_id;
         }

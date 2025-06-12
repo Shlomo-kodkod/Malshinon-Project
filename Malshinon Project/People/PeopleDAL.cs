@@ -189,6 +189,7 @@ namespace Malshinon_Project
         internal bool IsUniqueName(string name)
         {
             string query = "SELECT COUNT(*) AS count FROM people WHERE first_name = @first_name";
+            int countName = 0;
             try
             {
                 using(var conn = new MySqlConnection(connStr))
@@ -202,7 +203,7 @@ namespace Malshinon_Project
                         {
                             if (reader.Read())
                             {
-                                int countName = reader.GetInt32("count");
+                                countName = reader.GetInt32("count");
                                 return countName == 0;
                             }
                             
