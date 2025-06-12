@@ -14,13 +14,18 @@ namespace Malshinon_Project
         {
             int len = text.Length;
 
-            if (len >= 500)
+            if (text is null)
+            {
+                return false;
+            }
+
+            else if (len >= 500)
             {
                 Console.WriteLine("Text length error. Please try again with a shorter message.");
                 return false;
             }
 
-            if (len <= 0)
+            else if (len <= 0)
             {
                 Console.WriteLine("Text is empty. Please enter a valid report.");
                 return false;
@@ -34,6 +39,7 @@ namespace Malshinon_Project
             try
             {
                 string[] splitText = text.Split(' ');
+                Console.WriteLine(splitText.Length >= 2 ? "": "Text length error. Please try again with a longer message.");
                 return splitText.Length >= 2;
             }
             catch
@@ -61,6 +67,7 @@ namespace Malshinon_Project
                     }
                 }
                 Console.WriteLine(upCaseCnt >= 2 ? "" : "Text error. Please ensure the target's name starts with uppercase letters.");
+                return true;
             }
             catch
             {

@@ -12,11 +12,6 @@ namespace Malshinon_Project
         {
             Menu menu = new Menu();
             menu.RunMenu();
-
-
-
-
-
         }
     }
 }
