@@ -17,7 +17,7 @@ namespace Malshinon_Project
         private static AnalysisMenu analysisMenu = new AnalysisMenu();
         internal void DisplayMenu()
         {
-            Thread.Sleep(1500);
+            Thread.Sleep(3000);
             Console.Clear();
             Console.WriteLine(
                 """
