@@ -81,6 +81,7 @@ namespace Malshinon_Project
                     firstName = GetFirstName(peopleDal);
                     lastName = GetLastName();
                 }
+                peopleDal.AddPeople("reporter", firstName, lastName);
             }
 
             reported_id = peopleDal.GetIdByName(firstName, lastName);
